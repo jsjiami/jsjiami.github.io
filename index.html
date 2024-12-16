@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <title>JS加密工具：U加密 | JS加密</title>
+    <meta name="description" content="U加密：编码式JS代码加密工具，将JS代码分割、Unicode编码化存储到数组中，使代码全部成为密文状态显示，执行时由eval调用，解密、重新编码。" />
+    <style>
+        *{
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+
+        .amount {
+            text-align: center;
+            font-family: roboto condensed;
+            font-weight: 400;
+            font-size: 72px;
+            margin: 20px 0 10px 0;
+            color: #000;
+            line-height: 72px
+        }
+
+        .text {
+            text-align: center;
+            font-family: lato, Sans-serif;
+            font-weight: 400;
+            letter-spacing: 2px;
+            font-size: 13px;
+            margin-top: 10px
+        }
+
+        .text-sub {
+            margin: 5px 50px;
+            line-height: 1.3;
+            font-size: 10px;
+            font-family: roboto condensed, sans-serif;
+            font-weight: 300;
+            text-align: center
+        }
+
+        .sup {
+            font-size: 75%;
+            line-height: 0;
+            position: relative;
+            vertical-align: baseline;
+            top: -.5em;
+        }
+
+        .b1 {
+            padding-bottom: 30px;
+            padding-top: 5px;
+            margin: 0;
+            background: #f5f6f7;
+        }
+
+        .b2 {
+            padding-right: 15px;
+            padding-left: 15px;
+            margin-right: auto;
+            margin-left: auto;
+            width: auto;
+            max-width: 1170px;
+        }
+
+        .b3 {
+            margin: 10px auto;
+            max-width: 600px;
+            border: 1px solid #ddd;
+            padding: 10px;
+            background-color: #fff;
+            box-shadow: rgba(50, 50, 93, .25) 0 -20px 40px -70px, rgba(0, 0, 0, .3) 0 40px 60px -30px
+        }
+
+        .i1 {
+            height: 80px;
+            background: #191919;
+            border-radius: 90px;
+            padding: 10px 20px 10px 20px;
+        }
+
+        .d1 {
+            padding-top: 40px;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .t1 {
+            height: 150px;
+            width: 100%;
+            margin-top: 20px;
+            font-size: 12px;
+            resize: none;
+            border:1px solid #6f6f6f;
+            padding:4px;
+            outline:none;
+        }
+
+        .e1 {
+            margin-top: 5px;
+            width: 100%;
+            font-size: 19px;
+            cursor: pointer;
+        }
+
+        a {
+            color: #191919;
+            text-decoration: none;
+        }
+
+        .ts1 {
+            margin-top: 22px;
+            margin-bottom: 30px;
+        }
+
+        .loading{
+            text-align: center; 
+            width: 430px; 
+            height:100px;
+            position: absolute; 
+            left: 50%; 
+            top: 50%; 
+            margin: -50px 0px 0px -215px; 
+            box-shadow: rgba(50, 50, 93, .35) 0 -20px 30px -70px, rgba(0, 0, 0, .3) 0 40px 20px -45px;
+            border: 1px solid #ddd;
+            padding-top: 39px;
+            background: #fff;
+        }
+
+        .load2{
+            font-size:12px;
+            padding-left:5px;
+        }
+
+        .l17{
+            padding: 5px;
+            cursor: pointer;
+        }
+
+        .l17:hover{
+            color:#ff0000;
+        }
+
+        .l16{
+            cursor: pointer;
+        }
+
+        .l16:hover{
+            color:#ff0000;
+        }
+
+        .lw{
+            font-size: 20px;
+            opacity: 0.8;
+        }
+        .lw:hover{
+            opacity: 1;
+            
+        }
+        
+        .s19{
+            padding-left:5px;
+        }
+        .btn2{
+            top: 20px;
+            position: relative;
+            border: 1px solid #bbb;
+            padding: 5px 10px 5px 10px;
+            height: 23px;
+            display: inline-block;
+            border-bottom: none;
+            cursor: pointer;
+            background: #eee;
+        }
+        .btn1{
+            top: 20px;
+            position: relative;
+            border: 1px solid #6f6f6f;
+            padding: 5px 10px 5px 10px;
+            height: 23px;
+            display: inline-block;
+            border-bottom: none;
+            cursor: pointer;
+            background: #fff;
+        }
+        .t1:focus{
+            border:1px solid #6f6f6f;
+            padding:4px;
+            outline:none;
+        }
+    </style>
+</head>
+
+<body class="b1">
+    <div class="b2">
+        <div id="preview-card">
+            <div id="loading" class="loading">
+                <span>U加密</span>
+                <span class="load2">加载中...</span>
+            </div>
+            <div id="content" class="b3" style="display: none;">
+                <div class="d1">
+                    <a target="blank" href="https://jshaman.com/">
+                        <img src="https://www.jshaman.com/images/logo.png" class="i1">
+                    </a>
+                </div>
+                <div class="text" style="margin-top: 0px;">
+                    <a target="blank" href="https://jshaman.com/">
+                        <span class="lw">Jshaman.com</span>
+                    </a>
+                    <br>
+                    前后端开发者常用工具
+                </div>
+                <div class="amount">
+                    <span>U加密</span>
+                    <span style="font-size:29px;" class="sup">js加密</span>
+                </div>
+                <div class="text-sub">
+                    <p style="font-size:15px;">
+                        JShaman.com 开源JS加密工具<br>
+                        <span style="font-size:13px;">源码地址：<span class="l17" onclick="window.open('https://github.com/w2sft/ujiami')">https://github.com/w2sft/ujiami</span></span>
+                    </p>
+                    <span style="font-weight: 600; font-size:12px;">
+                        编码式JS代码加密，将JS代码分割、Unicode编码化存储到数组中，使代码全部成为密文状态显示，执行时由eval调用，解密、重新编码。</span><br>
+                    <span>加密后的代码中存在大量的u字符（unicode编码），所以命名为“U加密”。</span>
+                    <p>
+                        可加密前端Web浏览器、后端Node.JS环境下的标准JS代码。<br>
+                        被加密JS代码量建议不超过<span style="font-size:16px;">1KB</span>。<br>
+                        加密后代码可直接运行，使用方式与功能与加密前无异。<br>
+                        注意：代码尽可能是规范JS语法，例如：一行变量定义以“；”号结尾，而非直接回车结束。
+                        <span>TIP：少量JS代码可用U加密。较多代码建议使用</span>
+                        <a href="https://www.jshaman.com" target="_blank" class="l16">JShaman.com</a>、
+                        <a href="https://www.jsjiami.online" target="_blank" class="l16">JsJiami.online</a>
+                        <span>。</span>
+                    </p>
+                </div>
+                <div class="text-sub">
+                    <div style="text-align: left;">
+                        <span class="btn1" id="btn1" style="margin-left: 10px;" onclick="
+                            document.getElementById('btn1').className='btn1';
+                            document.getElementById('btn2').className='btn2';
+                            document.getElementById('code').style.display='block';
+                            document.getElementById('encode').style.display='none';
+                            ">JS源代码</span>
+                        <span class="btn2" id="btn2" onclick="
+                        document.getElementById('btn1').className='btn2';
+                        document.getElementById('btn2').className='btn1';
+                        document.getElementById('code').style.display='none';
+                        document.getElementById('encode').style.display='block';
+                        ">加密结果</span>
+<textarea class="t1" placeholder="请输入要加密的JS代码..." id="code" style="display: block;">
+(function (){
+    var domain = "jshaman.com";
+    var from_year = 2017;
+    var copyright = function(){
+        return "(c)" + from_year + "-" + (new Date).getFullYear() + "," + domain;
+    };
+    var console_log = console.log;
+    console_log(copyright())
+})();
+</textarea>
+<textarea class="t1" placeholder="请先进行JS加密操作..." id="rcode" style="display: none;">
+</textarea>
+                    </div>
+                    <input type="file" id="read" style="display: none;" onchange="read();" accept=".js"/>
+                    <div style="opacity: 0.8; margin-top: 10px; text-align: left;">
+                        <span class="l17" onclick="clean();">清空JS源代码</span> |
+                        <span class="l17" onclick="document.getElementById('read').click();">从文件读取JS源代码</span> |
+                        <span class="l17" onclick="save();">保存JS加密结果</span><br>
+                    </div>
+                    <p style="text-align: left; font-size: 9px;">
+                        <input type="checkbox" id="no_eval" onchange="ceval();">隐藏Eval<br>
+                        <span>使Eval关键字不显示，增强加密效果。</span>
+                    </p>
+                    <p style="text-align: left; font-size: 9px;">运行环境：
+                        <select id="environment" style="text-align: left; font-size: 9px;" disabled>
+                            <option value="web">Web浏览器</option>
+                            <option value="nodejs">Node.JS</option>
+                        </select>
+                    </p>
+                    <p style="text-align: left; font-size: 9px;">
+                        <input type="checkbox" id="mini" checked>压缩代码<br>
+                        <span>将加密后的代码压缩成一行</span>
+                    </p>
+                    <button class="e1" onclick="e2();">U加密</button>
+                </div>
+                
+                <div class="text-sub ts1">
+                    <span style="font-weight: 600;">更多工具</span>
+                    <div>
+                        <span>
+                            <a class="l17" href="https://www.jshaman.com/" target="_blank">JS加密</a>
+                        </span>
+                        <span class="s19">|</span>
+                        <span>
+                            <a class="l17" href="https://www.jshaman.com/jsminify/" target="_blank">JS压缩</a>
+                        </span>
+                        <span class="s19">|</span>
+                        <span>
+                            <a class="l17" href="https://www.jshaman.com/enhtml/" target="_blank">Html加密</a>
+                        </span><br>
+                        <span>
+                            <a class="l17" href="https://www.jsjiami.online/" target="_blank">JS加密在线</a>
+                        </span>
+                        <span class="s19">|</span>
+                        <span>
+                            <a class="l17" href="https://www.js-obfuscator.com/" target="_blank">JS Obfuscator</a>
+                        </span>
+                    </div>
+                    <div>
+                        <span>
+                            <a class="l17" href="https://www.jshaman.com/tools/eval.html" target="_blank">Eval JS加密</a>
+                            <span class="s19">|</span>
+                        </span>
+                        <span>
+                            <a class="l17" href="https://www.jshaman.com/tools/jsfuck.html" target="_blank">JSFuck JS加密</a>
+                            <span class="s19">|</span>
+                        </span>
+                        <span>
+                            <a class="l17" href="https://www.jshaman.com/tools/u-jiami.html" target="_blank">U加密</a>
+                            <span class="s19">|</span>
+                        </span>
+                        <span>
+                            <a class="l17" href="https://www.jshaman.com/tools/js-confuser.html" target="_blank">JS-Confuser JS混淆</a>
+                            <span class="s19">|</span>
+                        </span>
+                        <span>
+                            <a class="l17" href="https://www.jshaman.com/tools/o0-jiami.html" target="_blank">o0加密</a>
+                        </span>
+                        <br>
+                        <span>
+                            <a class="l17" href="https://www.jshaman.com/tools/aaencode.html" target="_blank">AAEncode JS加密</a>
+                        </span>
+                        <span class="s19">|</span>
+                        <span>
+                            <a class="l17" href="https://www.jshaman.com/tools/jjencode.html" target="_blank">JJEncode JS加密</a>
+                        </span><br>
+                        <span>
+                            <a class="l17" href="https://www.jshaman.com/tools/html-minify.html" target="_blank">Html压缩</a>
+                        </span>
+                        <span class="s19">|</span>
+                        <span>
+                            <a class="l17" href="https://www.jshaman.com/tools/css-minify.html" target="_blank">CSS压缩</a>
+                        </span><br>
+                        <span>
+                            <a class="l17" href="https://www.jshaman.com/tools/html-beautify.html" target="_blank">Html格式化</a>
+                        </span>
+                        <span class="s19">|</span>
+                        <span>
+                            <a class="l17" href="https://www.jshaman.com/tools/css-beautify.html" target="_blank">CSS格式化</a>
+                        </span>
+                        <span class="s19">|</span>
+                        <span>
+                            <a class="l17" href="https://www.jshaman.com/tools/js-beautify.html" target="_blank">JS格式化</a>
+                        </span><br>
+                        <span>
+                            <a class="l17" href="https://www.jshaman.com/tools/regexp2.html" target="_blank">JS正则表达式构造化</a>
+                        </span>
+                        <span class="s19">|</span>
+                        <span>
+                            <a class="l17" href="https://www.jshaman.com/tools/string-unicode.html" target="_blank">JS字符串转Unicode</a>
+                        </span>
+                        <span class="s19">|</span>
+                        <span>
+                            <a class="l17" href="https://www.jshaman.com/tools/ts2js.html" target="_blank">TS转JS</a>
+                        </span>
+                        <span class="s19">|</span>
+                        <span>
+                            <a class="l17" href="https://www.jshaman.com/tools/json-encode.html" target="_blank">JSON加密</a>
+                        </span>
+                        <br>
+                        <span>
+                            <a class="l17" href="https://www.jshaman.com/tools/random-password.html" target="_blank">随机密码生成</a>
+                        </span>
+                        <span class="s19">|</span>
+                       <span>
+                            <a class="l17" href="https://www.jshaman.com/tools/random-color.html" target="_blank">颜色随机生成</a>
+                        </span>
+                        <span class="s19">|</span>
+                        <span>
+                            <a class="l17" href="https://www.jshaman.com/tools/fingerprint.html" target="_blank">设备指纹</a>
+                        </span>
+                        <span class="s19">|</span>
+                        <span>
+                            <a class="l17" href="https://www.jshaman.com/tools/video-compress.html" target="_blank">视频压缩</a>
+                        </span>
+                        <br>
+                        <span>
+                            <a class="l17" href="https://www.jshaman.com/tools/browser-js.html" target="_blank">前端JS语法标准化</a>
+                        </span>
+                        <span class="s19">|</span>
+                        <span>
+                            <a class="l17" href="https://www.jshaman.com/tools/qr-code.html" target="_blank">二维码生成</a>
+                        </span>
+                        
+                        <div style="opacity: 0.7;">
+                            <br>
+                            <hr style="opacity: 0.5;">
+                            <br>
+                            <span style="font-weight: 600;">书籍教程</span>
+                            <span>
+                                <a class="l17" onclick="window.open('https://github.com/w2sft/JavaScript-diabolic-tricks-and-wicked-craft')">JShaman电子书《JavaScript奇技淫巧》，含许多JS混淆加密技术方案</a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="main.js"></script>
+    <script>
+       window.onload = function(){
+            document.getElementById("loading").style.display = "none";
+            document.getElementById("content").style.display = "block";
+            }
+        function clean(){
+            document.getElementById("code").value = "";
+            document.getElementById("btn1").click();
+        }
+        function read(){
+            var file_to_read = document.getElementById("read").files[0];
+            var file_reader = new FileReader();
+            file_reader.onload = function(file_loaded_event){
+                var textFromFileLoaded = file_loaded_event.target.result;
+                document.getElementById("code").value = textFromFileLoaded;
+            };
+            file_reader.readAsText(file_to_read);
+            document.getElementById("btn1").click();
+        }
+        function save(){
+            var textToSave = document.getElementById("encode").value;
+
+            if(textToSave.length == 0){
+                alert("没有内容可保存。")
+                return;
+            }
+
+            var textToSaveAsBlob = new Blob([textToSave], {type:"text/plain"});
+            var textToSaveAsURL = window.URL.createObjectURL(textToSaveAsBlob);
+            var fileNameToSaveAs = (new Date).getTime() + ".js";
+
+            var a = document.createElement("a");
+            a.download = fileNameToSaveAs;
+            a.href = textToSaveAsURL;
+            a.style.display = "none";
+            document.body.appendChild(a);
+            
+            a.click();
+            document.body.removeChild(a)
+        }
+    </script>
+    <script>
+
+        function e2(){
+            if(document.getElementById('code').value.trim().length == 0){
+                alert("请先输入代码。")
+                return;
+            }
+            var u_encode_result = u_encode(document.getElementById('code').value);
+
+            if(document.getElementById("no_eval").checked == true){
+                if(document.getElementById("environment").value == "nodejs"){
+                    u_encode_result = u_encode_result.replace("eval","global[(14).toString(32)+(31).toString(32)+(10).toString(32)+(21).toString(32)]");
+                }else{
+                    u_encode_result = u_encode_result.replace("eval","window[(14).toString(32)+(31).toString(32)+(10).toString(32)+(21).toString(32)]");
+                }
+            }
+            document.getElementById("encode").value = u_encode_result;
+            document.getElementById("btn2").click();
+        }
+        function ceval(){
+            if(document.getElementById("no_eval").checked == true){
+                document.getElementById("environment").disabled = false;
+            }else{
+                document.getElementById("environment").disabled = true;
+            }
+        }
+
+        //u加密
+        function u_encode(js_code){
+
+            js_code = trimLines(js_code);
+            console.log(js_code)
+            //把代码以空格分割，放入数组
+            var str_arr = js_code.trim().split(/\s+/);
+            var str_obj = {};
+            var min_str_arr = [];
+            var min_str_arr_index = [];
+            var index = 0;
+            //遍历代码数组
+            for(i=0; i<str_arr.length; i++){
+                //长度大于3的数组内容
+                if(str_arr[i].length >= 3){
+                    //判断对像中是否存在，用对像不用数组是因为效率更高
+                    if(str_obj[str_arr[i]] == null){
+                        index = i;
+                        str_obj[str_arr[i]] = i;
+                        //缩小的数组
+                        min_str_arr.push("`" + stringToUnicode(str_arr[i]).trim() + "`");
+                        //缩小的数组索引，解密用
+                        min_str_arr_index.push(index);
+                    }else{
+                        //索引，解密用
+                        index = str_obj[str_arr[i]];
+                    }
+                    //将代码进行替换加密
+                    js_code = js_code.replace(str_arr[i],"u6["+ index +"]");
+                }
+            }
+
+            //代码数组
+            var u = "var u=[" + min_str_arr + "];";
+            //代码数组索引
+            var u2 = "var u2=[" + min_str_arr_index + "];";
+            //加密的代码
+            var u3 = "var u3=`" + js_code + "`;";
+            //解密并执行代码
+            var u4 = 
+`
+for(u5=0; u5<u.length; u5++){
+u3 = u3.replace(new RegExp("u6\\\\["+u2[u5]+"\\\\]","g"), u[u5].replace("\`","").replace("\`",""));
+}
+eval(u3);
+`;
+            //组合，使可以自动执行加密代码
+            e = u+"\n"+u2+"\n"+u3+u4;
+
+            if(document.getElementById("mini").checked == true){
+                e = e.replace(/\n/g,"");
+            }
+            //e = "/*https://www.jshaman.com/tools/u-jiami.html*/"+e
+            return (e);
+        }
+        
+        //字符串unicode化
+        function stringToUnicode(str) {
+            var result = [];
+            for (var i = 0; i < str.length; i++) {
+                var charCode = str.charCodeAt(i);
+                result.push("\\u" + ("0000" + charCode.toString(16)).slice(-4));
+            }
+            return result.join('');
+        }
+
+        // 使用正则表达式匹配每行开头和结尾的空格
+        function trimLines(text) {
+            return text.replace(/^[ \t]+|[ \t]+$/gm, '');
+        }
+    </script>
+</body>
+
+</html>
