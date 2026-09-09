@@ -1,481 +1,288 @@
-<!DOCTYPE html>
-<html>
-
+<!doctype html>
+<html lang="zh-CN">
 <head>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-    <meta charset="utf-8">
-    <meta content="IE=edge" http-equiv="X-UA-Compatible">
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=0" name="viewport">
-    <title>在线JS加密 | 免费JS加密工具 | JS代码加密 | JS加密</title>
-    <meta name="description" content=">本站提供：在线JS加密、免费JS加密工具、JS代码加密、JS加密，方便快捷，让您一键即可完成JS加密。" />
-    <style>
-        *{
-            -webkit-box-sizing: border-box;
-            -moz-box-sizing: border-box;
-            box-sizing: border-box;
-        }
-        .text {
-            text-align: center;
-            font-family: lato, Sans-serif;
-            font-weight: 400;
-            letter-spacing: 2px;
-            font-size: 13px;
-            margin-top: 10px
-        }
-        .text-sub {
-            margin: 5px 50px;
-            line-height: 1.3;
-            font-size: 10px;
-            font-family: roboto condensed, sans-serif;
-            font-weight: 300;
-            text-align: center
-        }
-        .b1 {
-            padding-bottom: 30px;
-            padding-top: 5px;
-            margin: 0;
-            background: #f5f6f7;
-        }
-        .b2 {
-            padding-right: 15px;
-            padding-left: 15px;
-            margin-right: auto;
-            margin-left: auto;
-            width: auto;
-            max-width: 1170px;
-        }
-        .b3 {
-            margin: 10px auto;
-            max-width: 1000px;
-            max-width: 1200px;
-            border: 1px solid #ddd;
-            padding: 10px;
-            background-color: #fff;
-            box-shadow: rgba(50, 50, 93, .25) 0 -20px 40px -70px, rgba(0, 0, 0, .3) 0 40px 60px -30px
-        }
-        .d1 {
-            padding-top: 40px;
-            margin-bottom: 10px;
-            text-align: center;
-        }
-        .t1 {
-            height: 150px;
-            width: 100%;
-            margin-top: 20px;
-            font-size: 12px;
-            resize: none;
-            border:1px solid #6f6f6f;
-            padding:4px;
-            outline:none;
-        }
-        .t1 {
-            height: 150px;
-            width: 100%;
-            margin-top: 20px;
-            font-size: 12px;
-            resize: none;
-            border:1px solid #6f6f6f;
-            padding:4px;
-            outline:none;
-        }
-        .e1 {
-            margin-top: 5px;
-            width: 100%;
-            font-size: 19px;
-            cursor: pointer;
-        }
-        a {
-            color: #191919;
-            text-decoration: none;
-        }
-        .ts1 {
-            margin-top: 22px;
-            margin-bottom: 30px;
-        }
-        .loading{
-            text-align: center; 
-            width: 430px; 
-            height:100px;
-            position: absolute; 
-            left: 50%; 
-            top: 50%; 
-            margin: -50px 0px 0px -215px; 
-            box-shadow: rgba(50, 50, 93, .35) 0 -20px 30px -70px, rgba(0, 0, 0, .3) 0 40px 20px -45px;
-            border: 1px solid #ddd;
-            padding-top: 39px;
-            background: #fff;
-        }
-        .load2{
-            font-size:12px;
-            padding-left:5px;
-        }
-        .l17{
-            padding: 5px;
-            cursor: pointer;
-        }
-        .l17:hover{
-            color:#ff0000;
-        }
-        .btn2{
-            top: 20px;
-            position: relative;
-            border: 1px solid #bbb;
-            padding: 5px 10px 5px 10px;
-            height: 23px;
-            display: inline-block;
-            border-bottom: none;
-            cursor: pointer;
-            background: #eee;
-        }
-        .btn1{
-            top: 20px;
-            position: relative;
-            border: 1px solid #6f6f6f;
-            padding: 5px 10px 5px 10px;
-            height: 23px;
-            display: inline-block;
-            border-bottom: none;
-            cursor: pointer;
-            background: #fff;
-        }
-        .t1:focus{
-            border:1px solid #6f6f6f;
-            padding:4px;
-            outline:none;
-        }
-        .l220{
-            text-shadow: 1px 0px 1px #666666; font-weight:600; opacity:0.8; font-size:10px;
-        }
-        .l221{
-            opacity:0.6; 
-            padding-left: 2px;
-            padding-right:2px;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="在线 JS 加密工具，支持多种 JavaScript 代码混淆、标准化与压缩选项。">
+  <meta name="theme-color" content="#07090f">
+  <title>在线JS加密｜免费JS代码加密工具</title>
+  <link rel="stylesheet" href="./style.css">
 </head>
+<body class="visual-v2 is-loading">
+  <div class="page-loader" id="page-loader" role="status" aria-live="polite" aria-label="页面加载中">
+    <div class="loader-core" aria-hidden="true"><i></i><span>JS</span><b></b></div>
+    <div class="loader-copy"><strong>JS加密</strong><span>正在初始化本地加密引擎</span></div>
+    <div class="loader-track" aria-hidden="true"><i></i></div>
+    <small>LOCAL ENGINE / LOADING</small>
+  </div>
+  <div class="noise" aria-hidden="true"></div>
+  <div class="ambient ambient-one" aria-hidden="true"></div>
+  <div class="ambient ambient-two" aria-hidden="true"></div>
+  <div class="screen-grid" aria-hidden="true"></div>
+  <div class="pointer-halo" id="pointer-halo" aria-hidden="true"></div>
 
-<body class="b1">
-    <div class="b2">
-        <div id="preview-card">
-            <div id="loading" class="loading">
-                <span>JS加密工具</span>
-                <span class="load2">加载中...</span>
-            </div>
-            <div id="content" class="b3" style="display: none;">
-                <div class="d1" style="font-size: 36px;">
-                    在线JS加密
-                </div>
-                <div class="text" style="margin-top: 0px;">
-                    免费JS加密工具、一键完成JS加密。
-                </div>
-                <div class="text-sub">
-                    <div style="text-align: left;">
-                        <span class="btn1" id="btn1" style="margin-left: 10px;" onclick="
-                            document.getElementById('btn1').className='btn1';
-                            document.getElementById('btn2').className='btn2';
-                            document.getElementById('code').style.display='block';
-                            document.getElementById('encode').style.display='none';
-                            ">JS代码</span>
-                        <span class="btn2" id="btn2" onclick="
-                        document.getElementById('btn1').className='btn2';
-                        document.getElementById('btn2').className='btn1';
-                        document.getElementById('code').style.display='none';
-                        document.getElementById('encode').style.display='block';
-                        ">JS代码加密结果</span>
-<textarea spellcheck="false" class="t1" placeholder="请输入JS代码..." id="code" style="display: block;">
-(function (){
-    var domain = "jshaman.com";
-    var from_year = 2017;
-    var copyright = function(){
-        return "(c)" + from_year + "-" + (new Date).getFullYear() + "," + domain;
-    };
-    var console_log = console.log;
-    console_log(copyright())
-})();
-</textarea>
-<textarea spellcheck="false" class="t1" placeholder="请先执行JS加密操作..." id="encode" style="display: none;">
-</textarea>
-                    </div>
-                    <input type="file" id="read" style="display: none;" onchange="read();" accept=".js"/>
-                    <div style="opacity: 0.8; margin-top: 10px; text-align: left;">
-                        <span class="l17" onclick="clean();">清空JS代码</span> |
-                        <span class="l17" onclick="document.getElementById('read').click();">从文件读取JS代码</span> |
-                        <span class="l17" onclick="save();">保存JS代码加密结果</span><br>
-                    </div>
-                    <p style="text-align: left; font-size:16px;">
-                       选项
-                    </p>
-                    <p style="text-align: left; font-size: 9px;">
-                        <input type="checkbox" id="zombieCode" checked>僵尸代码插入<br>
-                        <span style="font-size: 13px;">
-                            var a=1; var b=2;
-                        </span>
-                        <span class="l221">转化成</span>
-                        <span style="font-size: 16px;">
-                            <span class="l220">var _0x; </span>var a = 1;
-                            <span class="l220">_0x = "jfci";</span> var b = 2;
-                        </span>
-                    </p>
-                    <p style="text-align: left; font-size: 9px;">
-                        <input type="checkbox" id="regexpStandard" checked>正则表达式标准化<br>
-                        <span style="font-size: 13px;">
-                            var regExp = <span class="l220">/hello/g</span>;
-                        </span>
-                        <span class="l221">转化成</span>
-                        <span style="font-size: 16px;">
-                            var regExp = <span class="l220">new RegExp("hello", "g")</span>;
-                        </span>
-                    </p>
-                    <p style="text-align: left; font-size: 9px;">
-                        <input type="checkbox" id="jsonStandard" checked>JSON格式标准化<br>
-                        <span style="font-size: 13px;">
-                            var man = <span class="l220">{name:"tim", age:18}</span>;
-                        </span>
-                        <span class="l221">转化成</span>
-                        <span style="font-size: 16px;">
-                            var man = <span class="l220">{"name":"tim","age":18}</span>;
-                        </span>
-                    </p>
-                    <p style="text-align: left; font-size: 9px;">
-                        <input type="checkbox" id="renamePrivateFunction" checked>局部函数名加密<br>
-                        <span style="font-size: 13px;">
-                            function demo(){
-                                var age = 99;
-                                function <span class="l220">demo_sub</span>(){
-                                }
-                            }
-                        </span>
-                        <span class="l221">转化成</span>
-                        <span style="font-size: 16px;">
-                            function demo(){
-                                var age = 99;
-                                function <span class="l220">_0x62a87c</span>(){
-                                }
-                            }
-                        </span>
-                    </p>
-                    <p style="text-align: left; font-size: 9px;">
-                        <input type="checkbox" id="renamePrivateVariable" checked>局部变量名加密<br>
-                        <span style="font-size: 13px;">
-                            function demo(){
-                            var <span class="l220">age</span>=99;
-                            }
-                        </span>
-                        <span class="l221">转化成</span>
-                        <span style="font-size: 16px;">
-                            function demo(){
-                            var <span class="l220">_0xk$r</span>=99;
-                            }
-                        </span>
-                    </p>
-                    <p style="text-align: left; font-size: 9px;">
-                        <input type="checkbox" id="privateVariableToFunctionParam" checked>局部变量转函数参数<br>
-                        <span style="font-size: 13px;">
-                            function demo(){
-                                <span class="l220">let v1 = 1;</span>
-                                var v2 = 2;
-                                <span class="l220">const v3 = 3;</span>
-                            }
-                        </span>
-                        <span class="l221">转化成</span>
-                        <span style="font-size: 16px;">
-                            function demo(<span class="l220">v1，v3</span>) {
-                                <span class="l220">v1 = 1;</span>
-                                var v2 = 2;
-                                <span class="l220">v3 = 3;</span>
-                            }
-                        </span>
-                    </p>
-                    <p style="text-align: left; font-size: 9px;">
-                        <input type="checkbox" id="numericLiteralEncode" checked>数值转二元表达式<br>
-                        <span style="font-size: 13px;">
-                            var num = <span class="l220">123</span>;
-                        </span>
-                        <span class="l221">转化成</span>
-                        <span style="font-size: 16px;">
-                            var num = <span class="l220">683517 ^ 683398</span>;
-                        </span>
-                    </p>
-                    <p style="text-align: left; font-size: 9px;">
-                        <input type="checkbox" id="booleanLiteralEncode" checked>布尔转一元表达式<br>
-                        <span style="font-size: 13px;">
-                            var done = <span class="l220">true</span>;
-                        </span>
-                        <span class="l221">转化成</span>
-                        <span style="font-size: 16px;">
-                            var done = <span class="l220">!![]</span>;
-                        </span>
-                    </p>
-                    <p style="text-align: left; font-size: 9px;">
-                        <input type="checkbox" id="dotPunctuationToBracket" checked>点符号转方括号符号<br>
-                        <span style="font-size: 13px;">
-                            var weGet = <span class="l220">we.get</span>;
-                        </span>
-                        <span class="l221">转化成</span>
-                        <span style="font-size: 16px;">
-                            var weGet = <span class="l220">we["\u0067\u0065\u0074"]</span>;
-                        </span>
-                    </p>
-                    <p style="text-align: left; font-size: 9px;">
-                        <input type="checkbox" id="StringToUnicode" checked>字符串Unicode化<br>
-                        <span style="font-size: 13px;">
-                            var js = <span class="l220">"JS"</span>;
-                        </span>
-                        <span class="l221">转化成</span>
-                        <span style="font-size: 16px;">
-                            var js = <span class="l220">"\u004a\u0053"</span>;
-                        </span>
-                    </p>
-                    <p style="text-align: left; font-size: 9px;">
-                        <input type="checkbox" id="reverseString" checked>字符串颠倒<br>
-                        <span style="font-size: 13px;">
-                            var name = <span class="l220">"tom"</span>;
-                        </span>
-                        <span class="l221">转化成</span>
-                        <span style="font-size: 16px;">
-                            var name = <span class="l220">"mot".split("").reverse().join("")</span>;
-                        </span>
-                    </p>
-                    <p style="text-align: left; font-size: 9px;">
-                        <input type="checkbox" id="comments">保留代码注释<br>
-                        <input type="checkbox" id="compact" checked>压缩代码
-                    </p>
-                    <button class="e1" id="jsjiami">JS加密</button>
-                </div>
-                
-                <div class="text-sub ts1">
-                    
-                    <span style="font-weight: 600;">更多工具</span><br><br>
-                    <div>
-                        <span>
-                            <a class="l17" href="https://www.jshaman.com/" target="_blank">JS加密</a>
-                        </span>
-                        <span class="s19">|</span>
-                        <span>
-                            <a class="l17" href="https://www.jshaman.com/jsminify/" target="_blank">JS压缩</a>
-                        </span>
-                        <span class="s19">|</span>
-                        <span>
-                            <a class="l17" href="https://www.jshaman.com/enhtml/" target="_blank">Html加密</a>
-                        </span><br>
-                        <span>
-                            <a class="l17" href="https://www.jsjiami.online/" target="_blank">JS加密在线</a>
-                        </span>
-                        <span class="s19">|</span>
-                        <span>
-                            <a class="l17" href="https://www.js-obfuscator.com/" target="_blank">JS Obfuscator</a>
-                        </span>
-                        <span>
-                            <a class="l17" href="https://www.jshaman.com/tools/eval.html" target="_blank">Eval JS加密</a>
-                            <span class="s19">|</span>
-                        </span>
-                        <span>
-                            <a class="l17" href="https://www.jshaman.com/tools/jsfuck.html" target="_blank">JSFuck JS加密</a>
-                            <span class="s19">|</span>
-                        </span>
-                         <span>
-                            <a class="l17" href="https://www.jshaman.com/tools/u-js-jia-mi.html" target="_blank">U加密</a>
-                            <span class="s19">|</span>
-                        </span>
-                        <span>
-                            <a class="l17" href="https://www.jshaman.com/tools/js-confuser.html" target="_blank">JS-Confuser JS混淆</a>
-                            <span class="s19">|</span>
-                        </span>
-                        <span>
-                            <a class="l17" href="https://www.jshaman.com/tools/o0-js-jia-mi.html" target="_blank">o0加密</a>
-                        </span>
-                        <br>
-                        <span>
-                            <a class="l17" href="https://www.jshaman.com/tools/aaencode.html" target="_blank">AAEncode JS加密</a>
-                        </span>
-                        <span class="s19">|</span>
-                        <span>
-                            <a class="l17" href="https://www.jshaman.com/tools/jjencode.html" target="_blank">JJEncode JS加密</a>
-                        </span>
-                        <span class="s19">|</span>
-                        <span>
-                            <a class="l17" href="https://www.jshaman.com/tools/anti-ai-js-encrypt.html" target="_blank">反AI逆向JS加密</a>
-                        </span>
-                        <br>
-                        <span>
-                            <a class="l17" href="https://www.jshaman.com/tools/html-minify.html" target="_blank">Html压缩</a>
-                        </span>
-                        <span class="s19">|</span>
-                        <span>
-                            <a class="l17" href="https://www.jshaman.com/tools/css-minify.html" target="_blank">CSS压缩</a>
-                        </span><br>
-                        <span>
-                            <a class="l17" href="https://www.jshaman.com/tools/html-beautify.html" target="_blank">Html格式化</a>
-                        </span>
-                        <span class="s19">|</span>
-                        <span>
-                            <a class="l17" href="https://www.jshaman.com/tools/css-beautify.html" target="_blank">CSS格式化</a>
-                        </span>
-                        <span class="s19">|</span>
-                        <span>
-                            <a class="l17" href="https://www.jshaman.com/tools/js-beautify.html" target="_blank">JS格式化</a>
-                        </span><br>
-                        <span>
-                            <a class="l17" href="https://www.jshaman.com/tools/regexp-format.html" target="_blank">JS正则表达式构造化</a>
-                        </span>
-                        <span class="s19">|</span>
-                        <span>
-                            <a class="l17" href="https://www.jshaman.com/tools/string-unicode.html" target="_blank">JS字符串转Unicode</a>
-                        </span>
-                        <span class="s19">|</span>
-                        <span>
-                            <a class="l17" href="https://www.jshaman.com/tools/ts2js.html" target="_blank">TS转JS</a>
-                        </span>
-                        <span class="s19">|</span>
-                        <span>
-                            <a class="l17" href="https://www.jshaman.com/tools/json-encode.html" target="_blank">JSON加密</a>
-                        </span>
-                        <br>
-                        <span>
-                            <a class="l17" href="https://www.jshaman.com/tools/browser-js.html" target="_blank">前端JS语法标准化</a>
-                        </span>
-                </div>
-            </div>
-        </div>
+  <header class="site-header">
+    <a class="brand" href="#top" aria-label="JS加密首页">
+      <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+      <span class="brand-name">JS加密<small>在线 JS 加密</small></span>
+    </a>
+    <nav class="nav" aria-label="主导航">
+      <a class="nav-link active" href="#workspace">JS加密工作台</a>
+      <a class="nav-link" href="#capabilities">功能说明</a>
+      <a class="nav-link" href="#tools">更多工具</a>
+    </nav>
+    <div class="system-status" aria-label="系统状态：可用">
+      <span class="status-dot"></span>
+      <span>ENGINE ONLINE</span>
     </div>
-    <script>
-       window.onload = function(){
-            document.getElementById("loading").style.display = "none";
-            document.getElementById("content").style.display = "block";
-            }
-        function clean(){
-            document.getElementById("code").value = "";
-            document.getElementById("btn1").click();
-        }
-        function read(){
-            var file_to_read = document.getElementById("read").files[0];
-            var file_reader = new FileReader();
-            file_reader.onload = function(file_loaded_event){
-                var textFromFileLoaded = file_loaded_event.target.result;
-                document.getElementById("code").value = textFromFileLoaded;
-            };
-            file_reader.readAsText(file_to_read);
-            document.getElementById("btn1").click();
-        }
-        function save(){
-            var textToSave = document.getElementById("encode").value;
-            if(textToSave.length == 0){
-                alert("无内容可保存，请先进行JS加密。");
-                return;
-            }
-            var textToSaveAsBlob = new Blob([textToSave], {type:"text/plain"});
-            var textToSaveAsURL = window.URL.createObjectURL(textToSaveAsBlob);
-            var fileNameToSaveAs = (new Date).getTime() + ".js";
-            var a = document.createElement("a");
-            a.download = fileNameToSaveAs;
-            a.href = textToSaveAsURL;
-            a.style.display = "none";
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a)
-        }
-    </script>
-    <script src="free-obfuscate-bundle.js"></script>
-</body>
+    <button class="menu-button" type="button" aria-label="打开菜单" aria-expanded="false">
+      <span></span><span></span>
+    </button>
+  </header>
 
+  <div class="signal-strip" aria-hidden="true">
+    <span><i></i>CLIENT-SIDE OBFUSCATION</span>
+    <span>AST MATRIX <b>ACTIVE</b></span>
+    <span>PAYLOAD CHANNEL <b>LOCAL</b></span>
+    <span class="signal-code">0x7F / JS / 2026</span>
+  </div>
+
+  <main id="top">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <div class="hero-coordinate"><span>X:22.319</span><i></i><span>Y:114.08</span></div>
+        <div class="eyebrow"><span>JAVASCRIPT DEFENSE SYSTEM</span><b>V3.7.1</b></div>
+        <h1 id="hero-title"><span>代码，</span><br><em>无迹可循。</em></h1>
+        <p>面向现代前端工程的 JavaScript 混淆工作台。重组变量、字符串与执行结构，在浏览器内完成多层代码防护。</p>
+        <div class="hero-actions">
+          <a class="hero-primary" href="#workspace">
+            <span>进入JS加密工作台</span>
+            <svg viewBox="0 0 22 22" aria-hidden="true"><path d="M4 11h13M13 6l5 5-5 5"/></svg>
+          </a>
+          <a class="hero-secondary" href="#capabilities"><span>查看防护能力</span><i>↓</i></a>
+        </div>
+        <div class="hero-specs" aria-label="工具特性">
+          <div><strong>13</strong><span>PROTECTION<br>MODULES</span></div>
+          <div><strong>0</strong><span>SERVER<br>UPLOADS</span></div>
+          <div><strong>&lt;1s</strong><span>LOCAL<br>PIPELINE</span></div>
+        </div>
+      </div>
+      <div class="reactor" id="reactor" aria-hidden="true">
+        <div class="reactor-scope"></div>
+        <div class="reactor-ring ring-a"><span></span><i></i></div>
+        <div class="reactor-ring ring-b"><span></span><i></i><b></b></div>
+        <div class="reactor-ring ring-c"></div>
+        <div class="reactor-core">
+          <span class="core-bracket">{</span>
+          <strong>JS</strong>
+          <span class="core-bracket">}</span>
+          <i></i>
+        </div>
+        <div class="reactor-tag tag-a"><span>NODE_07</span><b>VARIABLE ENTROPY</b></div>
+        <div class="reactor-tag tag-b"><span>NODE_12</span><b>STRING CIPHER</b></div>
+        <div class="reactor-tag tag-c"><span>OUTPUT</span><b>INTEGRITY 98.7</b></div>
+        <div class="reactor-code code-a"><b>0xA91F</b><span>function(_0x2a){</span></div>
+        <div class="reactor-code code-b"><span>flow_control</span><b>SECURED</b></div>
+        <div class="reactor-readout">
+          <div><span>OBFUSCATION CORE</span><b>ONLINE</b></div>
+          <i><em></em></i>
+          <div><span>ENTROPY</span><strong id="entropy-readout">92.8%</strong></div>
+        </div>
+        <div class="corner corner-tl"></div><div class="corner corner-tr"></div>
+        <div class="corner corner-bl"></div><div class="corner corner-br"></div>
+      </div>
+      <div class="hero-watermark" aria-hidden="true">OBFUSCATE<span>/</span>PROTECT<span>/</span>DEPLOY</div>
+      <div class="hero-data-rail" aria-hidden="true">
+        <span>RUNTIME</span><i></i><span>ECMASCRIPT</span><i></i><span>LOCAL-FIRST</span>
+      </div>
+    </section>
+
+    <section class="workspace-section" id="workspace" aria-labelledby="workspace-title">
+      <div class="section-heading">
+        <div>
+          <span class="section-kicker">ENCRYPTION WORKSPACE</span>
+          <h2 id="workspace-title">JS代码加密工作台</h2>
+        </div>
+        <p>粘贴或导入 JavaScript，选择保护策略，然后生成混淆结果。</p>
+      </div>
+
+      <div class="workspace-shell">
+        <div class="workspace-bar">
+          <div class="workspace-id"><span>SESSION</span><b id="session-id">7A3F—D91C</b></div>
+          <div class="workspace-pipeline" aria-label="处理流程">
+            <span class="done">01 INPUT</span><i></i><span class="current">02 CONFIG</span><i></i><span>03 OUTPUT</span>
+          </div>
+          <div class="privacy"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M6.5 8V6.2a3.5 3.5 0 017 0V8M5 8h10v8H5z"/></svg> LOCAL PROCESS</div>
+        </div>
+
+        <div class="workspace-grid">
+          <div class="editors">
+            <article class="editor-panel" id="input-panel">
+              <div class="editor-head">
+                <div class="editor-title"><span class="file-dot source"></span><strong>源代码</strong><small>SOURCE.JS</small></div>
+                <div class="editor-actions">
+                  <button type="button" id="clear-btn">清空</button>
+                  <button type="button" id="upload-btn">导入文件</button>
+                  <input id="file-input" type="file" accept=".js,.mjs,.cjs,.txt" hidden>
+                </div>
+              </div>
+              <div class="code-wrap">
+                <div class="line-numbers" id="input-lines" aria-hidden="true">1<br>2<br>3<br>4<br>5<br>6<br>7<br>8</div>
+                <textarea id="code" aria-label="JS源代码" spellcheck="false">(function () {
+  const domain = "jsjiami.github.io";
+  const fromYear = 2017;
+  const copyright = function () {
+    return `(c)${fromYear}-${new Date().getFullYear()},${domain}`;
+  };
+  console.log(copyright());
+})();</textarea>
+              </div>
+              <div class="editor-foot"><span><i></i>READY</span><span id="source-stats">8 LINES · 218 CHARS</span></div>
+            </article>
+
+            <article class="editor-panel result-panel" id="result-panel">
+              <div class="editor-head">
+                <div class="editor-title"><span class="file-dot result"></span><strong>加密结果</strong><small>OUTPUT.JS</small></div>
+                <div class="editor-actions">
+                  <button type="button" id="copy-btn">复制</button>
+                  <button type="button" id="save-btn">保存文件</button>
+                </div>
+              </div>
+              <div class="code-wrap">
+                <div class="line-numbers" id="output-lines" aria-hidden="true">1<br>2<br>3<br>4<br>5<br>6<br>7<br>8</div>
+                <textarea id="encode" aria-label="JS加密结果" readonly spellcheck="false"></textarea>
+                <div class="result-empty" id="result-empty" aria-hidden="true">
+                  <div class="empty-orbit"><span></span><i></i></div>
+                  <strong>等待加密任务</strong>
+                  <small>配置选项后启动引擎</small>
+                </div>
+              </div>
+              <div class="editor-foot"><span><i></i><b id="result-status">STANDBY</b></span><span id="result-stats">NO OUTPUT</span></div>
+            </article>
+          </div>
+
+          <aside class="config-panel" aria-labelledby="config-title">
+            <button class="encrypt-button encrypt-button-top" id="obfuscate" type="button">
+              <span class="button-grid" aria-hidden="true"></span>
+              <span class="button-label"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 11V8a4 4 0 018 0v3M6 11h12v9H6zM12 14v3"/></svg><b>启动 JS 加密</b></span>
+              <span class="button-arrow">↗</span>
+            </button>
+            <div class="config-head">
+              <div><span>PROTECTION MATRIX</span><h3 id="config-title">加密选项</h3></div>
+              <button type="button" id="reset-options">恢复默认</button>
+            </div>
+            <div class="cn-preset-control" aria-label="加密配置">
+              <button type="button" data-preset="light">轻度</button>
+              <button type="button" data-preset="balanced" class="active">均衡</button>
+              <button type="button" data-preset="maximum">最强</button>
+            </div>
+            <div class="cn-profile-card">
+              <div class="cn-score-orb"><span id="profile-score">82</span><small>%</small></div>
+              <div class="cn-profile-copy"><span>PROTECTION SCORE</span><strong id="profile-label">均衡</strong><small id="profile-description">推荐用于网页发布</small></div>
+              <div class="cn-profile-stat"><span>ACTIVE MODULES</span><strong id="module-count">9 / 13</strong></div>
+              <div class="cn-profile-stat"><span>SIZE IMPACT</span><strong id="size-impact">+19%</strong></div>
+            </div>
+            <div class="option-list">
+              <label class="option-item">
+                <input id="zombieCode" type="checkbox" name="option" value="deadCode" checked>
+                <span class="switch"><i></i></span><span class="option-copy"><strong>僵尸代码插入</strong><small>增加无效逻辑以扰乱代码分析</small></span>
+              </label>
+              <label class="option-item">
+                <input id="regexpStandard" type="checkbox" name="option" value="regex" checked>
+                <span class="switch"><i></i></span><span class="option-copy"><strong>正则表达式标准化</strong><small>转换为 RegExp 构造形式</small></span>
+              </label>
+              <label class="option-item">
+                <input id="jsonStandard" type="checkbox" name="option" value="json" checked>
+                <span class="switch"><i></i></span><span class="option-copy"><strong>JSON 格式标准化</strong><small>统一对象键值结构</small></span>
+              </label>
+              <label class="option-item">
+                <input id="renamePrivateFunction" type="checkbox" name="option" value="functionName" checked>
+                <span class="switch"><i></i></span><span class="option-copy"><strong>局部函数名加密</strong><small>重命名内部函数标识</small></span>
+              </label>
+              <label class="option-item">
+                <input id="renamePrivateVariable" type="checkbox" name="option" value="variableName" checked>
+                <span class="switch"><i></i></span><span class="option-copy"><strong>局部变量名加密</strong><small>混淆局部变量名称</small></span>
+              </label>
+              <label class="option-item">
+                <input id="privateVariableToFunctionParam" type="checkbox" name="option" value="parameters">
+                <span class="switch"><i></i></span><span class="option-copy"><strong>局部变量转函数参数</strong><small>调整变量声明结构</small></span>
+              </label>
+              <label class="option-item">
+                <input id="numericLiteralEncode" type="checkbox" name="option" value="number" checked>
+                <span class="switch"><i></i></span><span class="option-copy"><strong>数值转二元表达式</strong><small>将数值转换为等价运算</small></span>
+              </label>
+              <label class="option-item">
+                <input id="booleanLiteralEncode" type="checkbox" name="option" value="boolean" checked>
+                <span class="switch"><i></i></span><span class="option-copy"><strong>布尔转一元表达式</strong><small>替换 true / false 表达式</small></span>
+              </label>
+              <label class="option-item">
+                <input id="dotPunctuationToBracket" type="checkbox" name="option" value="member" checked>
+                <span class="switch"><i></i></span><span class="option-copy"><strong>点符号转方括号符号</strong><small>转换属性访问方式</small></span>
+              </label>
+              <label class="option-item">
+                <input id="StringToUnicode" type="checkbox" name="option" value="unicode" checked>
+                <span class="switch"><i></i></span><span class="option-copy"><strong>字符串Unicode化</strong><small>隐藏可读字符串内容</small></span>
+              </label>
+              <label class="option-item">
+                <input id="reverseString" type="checkbox" name="option" value="reverse">
+                <span class="switch"><i></i></span><span class="option-copy"><strong>字符串颠倒</strong><small>运行时恢复字符串顺序</small></span>
+              </label>
+              <label class="option-item">
+                <input id="comments" type="checkbox" name="option" value="comments">
+                <span class="switch"><i></i></span><span class="option-copy"><strong>保留代码注释</strong><small>输出中保留原始注释</small></span>
+              </label>
+              <label class="option-item">
+                <input id="compact" type="checkbox" name="option" value="compact">
+                <span class="switch"><i></i></span><span class="option-copy"><strong>压缩代码</strong><small>移除冗余空白以缩小体积</small></span>
+              </label>
+            </div>
+          </aside>
+        </div>
+      </div>
+      <p class="workspace-note"><span>●</span> 提示：混淆用于提高代码阅读与逆向门槛，不等同于绝对安全。重要密钥与核心逻辑请始终放在服务端。</p>
+    </section>
+
+    <section class="capabilities" id="capabilities" aria-labelledby="capabilities-title">
+      <div class="capability-intro">
+        <span class="section-kicker">DESIGNED FOR CLARITY</span>
+        <h2 id="capabilities-title">复杂处理，<br>保持简单。</h2>
+        <p>把繁琐的代码保护策略集中在一个清晰的工作流中。无需配置环境，打开即可使用。</p>
+      </div>
+      <div class="capability-grid">
+        <article><span class="cap-icon">⌁</span><small>IN-BROWSER</small><h3>本地处理</h3><p>所有输入与转换均在当前浏览器中完成，代码无需上传服务器。</p></article>
+        <article><span class="cap-icon">◫</span><small>MULTI-LAYER</small><h3>多重策略</h3><p>从变量名到字符串与表达式，多维度提高源代码的分析门槛。</p></article>
+        <article><span class="cap-icon">⇩</span><small>ZERO SETUP</small><h3>即用即走</h3><p>导入、加密、复制或保存，整个流程无需安装任何依赖。</p></article>
+      </div>
+    </section>
+
+    <section class="tools-section" id="tools" aria-labelledby="tools-title">
+      <div class="section-heading">
+        <div><span class="section-kicker">DEVELOPER TOOLKIT</span><h2 id="tools-title">更多开发工具</h2></div>
+        <p>继续探索代码压缩、格式化、编码与转换工具。</p>
+      </div>
+      <div class="tool-links">
+        <a href="https://www.jshaman.com/" target="_blank" rel="noopener"><span>01</span><strong>JShaman 专业JS混淆加密</strong><small>JSHAMAN</small><i>↗</i></a>
+        <a href="https://www.jshaman.com/jsminify/" target="_blank" rel="noopener"><span>02</span><strong>JS 代码压缩</strong><small>MINIFY</small><i>↗</i></a>
+        <a href="https://www.jshaman.com/enhtml/" target="_blank" rel="noopener"><span>03</span><strong>HTML 加密</strong><small>ENCODE</small><i>↗</i></a>
+        <a href="https://www.js-obfuscator.com/" target="_blank" rel="noopener"><span>04</span><strong>JS Obfuscator</strong><small>OBFUSCATE</small><i>↗</i></a>
+        <a href="https://www.jshaman.com/tools/hide-js-jia-mi.html" target="_blank" rel="noopener"><span>06</span><strong>JS代码隐形加密</strong><small>CONVERT</small><i>↗</i></a>
+        <a href="https://www.jshaman.com/tools/combining-js-jia-mi.html" target="_blank" rel="noopener"><span>05</span><strong>Combining JS组合字符加密</strong><small>FORMAT</small><i>↗</i></a>
+        <a href="https://www.jshaman.com/tools/ts2js.html" target="_blank" rel="noopener"><span>07</span><strong>TS 转 JS</strong><small>TRANSPILE</small><i>↗</i></a>
+        <a href="https://www.jshaman.com/tools/anti-ai-js-encrypt.html" target="_blank" rel="noopener"><span>08</span><strong>反AI逆向JS加密</strong><small>PROTECT</small><i>↗</i></a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <a class="brand footer-brand" href="#top"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span><span class="brand-name">JS加密<span>//</span>在线JS加密</span></a>
+    <p>Free online JavaScript obfuscation utility.</p>
+    <div><span>© 2017—<b id="year"></b></span><a href="#top">BACK TO TOP ↑</a></div>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"><span></span><b id="toast-text">已复制到剪贴板</b></div>
+  <button id="btn1" type="button" hidden aria-hidden="true"></button>
+  <button id="btn2" type="button" hidden aria-hidden="true"></button>
+  <script src="./free-obfuscate-bundle.js?v=2"></script>
+  <script src="./app.js?v=3"></script>
+</body>
 </html>
