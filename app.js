@@ -22,23 +22,78 @@ function updateSourceStats() {
 }
 
 const presets = {
-  light: new Set(['variableName', 'unicode']),
-  balanced: new Set(['deadCode', 'regex', 'json', 'functionName', 'variableName', 'number', 'boolean', 'member', 'unicode']),
-  maximum: new Set(['deadCode', 'regex', 'json', 'functionName', 'variableName', 'parameters', 'number', 'boolean', 'member', 'unicode', 'reverse', 'compact'])
+  light: new Set(['stringUnicode', 'memberExpression', 'renameLocals']),
+  balanced: new Set([
+    'stringArray',
+    'stringReverse',
+    'stringUnicode',
+    'memberExpression',
+    'numericLiteral',
+    'binaryExpression',
+    'booleanLiteral',
+    'assignmentJunk',
+    'zombieCode',
+    'renameLocals'
+  ]),
+  maximum: new Set([
+    'stringArray',
+    'stringReverse',
+    'stringUnicode',
+    'memberExpression',
+    'numericLiteral',
+    'binaryExpression',
+    'booleanLiteral',
+    'assignmentJunk',
+    'zombieCode',
+    'controlFlow',
+    'eval',
+    'renameGlobals',
+    'renameLocals',
+    'compact'
+  ])
 };
+
+function bundleOptions() {
+  const active = new Set(optionInputs.filter((input) => input.checked).map((input) => input.value));
+  return {
+    stringArray: active.has('stringArray'),
+    stringReverse: active.has('stringReverse'),
+    stringUnicode: active.has('stringUnicode'),
+    memberExpression: active.has('memberExpression'),
+    numericLiteral: active.has('numericLiteral'),
+    binaryExpression: active.has('binaryExpression'),
+    booleanLiteral: active.has('booleanLiteral'),
+    assignmentJunk: active.has('assignmentJunk'),
+    zombieCode: active.has('zombieCode'),
+    controlFlow: active.has('controlFlow'),
+    eval: active.has('eval'),
+    renameGlobals: active.has('renameGlobals'),
+    renameLocals: active.has('renameLocals'),
+    comments: active.has('comments'),
+    compact: active.has('compact')
+  };
+}
 
 function updateProfile(name = 'custom') {
   const active = optionInputs.filter((input) => input.checked).length;
-  const value = Math.min(98, 36 + active * 4.6);
+  const value = Math.min(98, 36 + active * 3.4);
   const labels = { light: '轻度', balanced: '均衡', maximum: '最强', custom: '自定义' };
   const descriptions = { light: '适合快速处理', balanced: '推荐用于网页发布', maximum: '启用完整保护策略', custom: '当前为自定义配置' };
   document.querySelector('#profile-score').textContent = Math.round(value);
   document.querySelector('.cn-score-orb').style.background = `conic-gradient(var(--cyan) 0 ${value}%, #1b2936 ${value}%)`;
   document.querySelector('#profile-label').textContent = labels[name] || labels.custom;
   document.querySelector('#profile-description').textContent = descriptions[name] || descriptions.custom;
-  document.querySelector('#module-count').textContent = `${active} / 13`;
-  document.querySelector('#size-impact').textContent = `+${Math.round(active * 2.1)}%`;
+  document.querySelector('#module-count').textContent = `${active} / ${optionInputs.length}`;
+  document.querySelector('#size-impact').textContent = `+${Math.round(active * 1.8)}%`;
   presetButtons.forEach((button) => button.classList.toggle('active', button.dataset.preset === name));
+}
+
+function applyPreset(name) {
+  const preset = presets[name];
+  optionInputs.forEach((input) => {
+    input.checked = preset.has(input.value);
+  });
+  updateProfile(name);
 }
 
 function showToast(message) {
@@ -48,75 +103,10 @@ function showToast(message) {
   toastTimer = setTimeout(() => toast.classList.remove('show'), 2600);
 }
 
-function randomName(seed) {
-  let hash = 0;
-  for (let i = 0; i < seed.length; i += 1) hash = ((hash << 5) - hash + seed.charCodeAt(i)) | 0;
-  return `_0x${Math.abs(hash).toString(16).slice(0, 6).padStart(6, 'a')}`;
-}
-
-function unicodeString(value) {
-  return value.split('').map((char) => {
-    const code = char.charCodeAt(0);
-    return code > 31 && code < 127 ? `\\u${code.toString(16).padStart(4, '0')}` : char;
-  }).join('');
-}
-
-function transformCode(code, enabled) {
-  let result = code;
-  const keepComments = enabled.has('comments');
-  if (!keepComments) {
-    result = result.replace(/\/\*[\s\S]*?\*\//g, '').replace(/(^|[^:])\/\/.*$/gm, '$1');
-  }
-  if (enabled.has('regex')) {
-    result = result.replace(/\/([^/\n\\]+)\/([gimsuy]*)/g, (_, body, flags) => `new RegExp(${JSON.stringify(body)}, ${JSON.stringify(flags)})`);
-  }
-  if (enabled.has('functionName')) {
-    const names = [...result.matchAll(/function\s+([A-Za-z_$][\w$]*)\s*\(/g)].map((match) => match[1]);
-    names.slice(1).forEach((name) => { result = result.replace(new RegExp(`\\b${name}\\b`, 'g'), randomName(name)); });
-  }
-  if (enabled.has('variableName')) {
-    const protectedNames = new Set(['domain']);
-    const names = [...result.matchAll(/\b(?:const|let|var)\s+([A-Za-z_$][\w$]*)/g)].map((match) => match[1]);
-    names.forEach((name) => {
-      if (!protectedNames.has(name)) result = result.replace(new RegExp(`\\b${name}\\b`, 'g'), randomName(name));
-    });
-  }
-  if (enabled.has('boolean')) {
-    result = result.replace(/\btrue\b/g, '!![]').replace(/\bfalse\b/g, '![]');
-  }
-  if (enabled.has('number')) {
-    result = result.replace(/\b(\d{2,})\b/g, (match) => {
-      const number = Number(match);
-      if (!Number.isSafeInteger(number)) return match;
-      const mask = 61453;
-      return `(${number ^ mask}^${mask})`;
-    });
-  }
-  if (enabled.has('member')) {
-    result = result.replace(/\.([A-Za-z_$][\w$]*)/g, (_, name) => `[${JSON.stringify(name)}]`);
-  }
-  if (enabled.has('reverse')) {
-    result = result.replace(/(["'])([^"'\n\\]{3,})\1/g, (_, quote, text) => `${JSON.stringify(text.split('').reverse().join(''))}.split("").reverse().join("")`);
-  } else if (enabled.has('unicode')) {
-    result = result.replace(/(["'])([^"'\n\\]+)\1/g, (_, quote, text) => `"${unicodeString(text)}"`);
-  }
-  if (enabled.has('deadCode')) {
-    result = `const ${randomName('guard')}=(()=>{const _=[1,3,5];return _.length===3})();\n${result}`;
-  }
-  if (enabled.has('compress')) {
-    result = result.replace(/\s+/g, ' ').replace(/\s*([{}();,:=+])\s*/g, '$1').trim();
-  }
-  return result;
-}
-
 sourceCode.addEventListener('input', updateSourceStats);
 sourceCode.addEventListener('scroll', () => { inputLines.scrollTop = sourceCode.scrollTop; });
 optionInputs.forEach((input) => input.addEventListener('change', () => updateProfile('custom')));
-presetButtons.forEach((button) => button.addEventListener('click', () => {
-  const preset = presets[button.dataset.preset];
-  optionInputs.forEach((input) => { input.checked = preset.has(input.value); });
-  updateProfile(button.dataset.preset);
-}));
+presetButtons.forEach((button) => button.addEventListener('click', () => applyPreset(button.dataset.preset)));
 
 document.querySelector('#clear-btn').addEventListener('click', () => {
   sourceCode.value = '';
@@ -136,9 +126,7 @@ document.querySelector('#file-input').addEventListener('change', async (event) =
 });
 
 document.querySelector('#reset-options').addEventListener('click', () => {
-  const defaults = presets.balanced;
-  optionInputs.forEach((input) => { input.checked = defaults.has(input.value); });
-  updateProfile('balanced');
+  applyPreset('balanced');
   showToast('已恢复默认配置');
 });
 
@@ -158,22 +146,35 @@ encryptButton.addEventListener('click', () => {
   pipelineSteps[2]?.classList.add('current');
   encryptButton.classList.add('loading');
   resultStatus.textContent = 'PROCESSING';
-  const bundleResult = outputCode.value;
   setTimeout(() => {
-    const result = bundleResult || outputCode.value;
-    outputCode.value = result;
-    outputLines.innerHTML = createLines(result);
-    resultEmpty.classList.add('hidden');
-    resultStatus.textContent = 'COMPLETE';
-    resultStats.textContent = `${result.split('\n').length} LINES · ${result.length} CHARS`;
-    encryptButton.classList.remove('loading');
-    workspaceShell.classList.remove('processing');
-    workspaceShell.classList.add('complete');
-    pipelineSteps[2]?.classList.remove('current');
-    pipelineSteps[2]?.classList.add('done');
-    setTimeout(() => workspaceShell.classList.remove('complete'), 900);
-    showToast('JS 加密完成');
-    if (window.innerWidth < 1180) document.querySelector('#result-panel').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    try {
+      const engine = window.JavaScriptObfuscatorLite;
+      if (!engine || typeof engine.obfuscate !== 'function') {
+        throw new Error('混淆引擎未加载，请刷新页面重试');
+      }
+      const result = engine.obfuscate(code, bundleOptions());
+      if (!result) throw new Error('无法混淆此代码，请检查语法');
+      outputCode.value = result;
+      outputLines.innerHTML = createLines(result);
+      resultEmpty.classList.add('hidden');
+      resultStatus.textContent = 'COMPLETE';
+      resultStats.textContent = `${result.split('\n').length} LINES · ${result.length} CHARS`;
+      encryptButton.classList.remove('loading');
+      workspaceShell.classList.remove('processing');
+      workspaceShell.classList.add('complete');
+      pipelineSteps[2]?.classList.remove('current');
+      pipelineSteps[2]?.classList.add('done');
+      setTimeout(() => workspaceShell.classList.remove('complete'), 900);
+      showToast('JS 加密完成');
+      if (window.innerWidth < 1180) document.querySelector('#result-panel').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    } catch (error) {
+      resultStatus.textContent = 'ERROR';
+      resultEmpty.classList.remove('hidden');
+      encryptButton.classList.remove('loading');
+      workspaceShell.classList.remove('processing');
+      pipelineSteps[2]?.classList.remove('current');
+      showToast(error.message || '无法混淆此代码');
+    }
   }, 720);
 });
 
@@ -217,7 +218,7 @@ window.addEventListener('load', () => {
 document.querySelector('#year').textContent = new Date().getFullYear();
 document.querySelector('#session-id').textContent = `${Math.random().toString(16).slice(2,6).toUpperCase()}—${Math.random().toString(16).slice(2,6).toUpperCase()}`;
 updateSourceStats();
-updateProfile('balanced');
+applyPreset('balanced');
 
 // Visual system V2: interactive obfuscation reactor.
 const pointerHalo = document.querySelector('#pointer-halo');

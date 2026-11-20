@@ -62,7 +62,7 @@
           <a class="hero-secondary" href="#capabilities"><span>查看防护能力</span><i>↓</i></a>
         </div>
         <div class="hero-specs" aria-label="工具特性">
-          <div><strong>13</strong><span>PROTECTION<br>MODULES</span></div>
+          <div><strong>15</strong><span>PROTECTION<br>MODULES</span></div>
           <div><strong>0</strong><span>SERVER<br>UPLOADS</span></div>
           <div><strong>&lt;1s</strong><span>LOCAL<br>PIPELINE</span></div>
         </div>
@@ -177,55 +177,63 @@
               <button type="button" data-preset="maximum">最强</button>
             </div>
             <div class="cn-profile-card">
-              <div class="cn-score-orb"><span id="profile-score">82</span><small>%</small></div>
+              <div class="cn-score-orb"><span id="profile-score">70</span><small>%</small></div>
               <div class="cn-profile-copy"><span>PROTECTION SCORE</span><strong id="profile-label">均衡</strong><small id="profile-description">推荐用于网页发布</small></div>
-              <div class="cn-profile-stat"><span>ACTIVE MODULES</span><strong id="module-count">9 / 13</strong></div>
-              <div class="cn-profile-stat"><span>SIZE IMPACT</span><strong id="size-impact">+19%</strong></div>
+              <div class="cn-profile-stat"><span>ACTIVE MODULES</span><strong id="module-count">10 / 15</strong></div>
+              <div class="cn-profile-stat"><span>SIZE IMPACT</span><strong id="size-impact">+18%</strong></div>
             </div>
             <div class="option-list">
               <label class="option-item">
-                <input id="zombieCode" type="checkbox" name="option" value="deadCode" checked>
-                <span class="switch"><i></i></span><span class="option-copy"><strong>僵尸代码插入</strong><small>增加无效逻辑以扰乱代码分析</small></span>
+                <input id="stringArray" type="checkbox" name="option" value="stringArray" checked>
+                <span class="switch"><i></i></span><span class="option-copy"><strong>字符串数组</strong><small>将字符串集中到运行时数组</small></span>
               </label>
               <label class="option-item">
-                <input id="regexpStandard" type="checkbox" name="option" value="regex" checked>
-                <span class="switch"><i></i></span><span class="option-copy"><strong>正则表达式标准化</strong><small>转换为 RegExp 构造形式</small></span>
-              </label>
-              <label class="option-item">
-                <input id="jsonStandard" type="checkbox" name="option" value="json" checked>
-                <span class="switch"><i></i></span><span class="option-copy"><strong>JSON 格式标准化</strong><small>统一对象键值结构</small></span>
-              </label>
-              <label class="option-item">
-                <input id="renamePrivateFunction" type="checkbox" name="option" value="functionName" checked>
-                <span class="switch"><i></i></span><span class="option-copy"><strong>局部函数名加密</strong><small>重命名内部函数标识</small></span>
-              </label>
-              <label class="option-item">
-                <input id="renamePrivateVariable" type="checkbox" name="option" value="variableName" checked>
-                <span class="switch"><i></i></span><span class="option-copy"><strong>局部变量名加密</strong><small>混淆局部变量名称</small></span>
-              </label>
-              <label class="option-item">
-                <input id="privateVariableToFunctionParam" type="checkbox" name="option" value="parameters">
-                <span class="switch"><i></i></span><span class="option-copy"><strong>局部变量转函数参数</strong><small>调整变量声明结构</small></span>
-              </label>
-              <label class="option-item">
-                <input id="numericLiteralEncode" type="checkbox" name="option" value="number" checked>
-                <span class="switch"><i></i></span><span class="option-copy"><strong>数值转二元表达式</strong><small>将数值转换为等价运算</small></span>
-              </label>
-              <label class="option-item">
-                <input id="booleanLiteralEncode" type="checkbox" name="option" value="boolean" checked>
-                <span class="switch"><i></i></span><span class="option-copy"><strong>布尔转一元表达式</strong><small>替换 true / false 表达式</small></span>
-              </label>
-              <label class="option-item">
-                <input id="dotPunctuationToBracket" type="checkbox" name="option" value="member" checked>
-                <span class="switch"><i></i></span><span class="option-copy"><strong>点符号转方括号符号</strong><small>转换属性访问方式</small></span>
-              </label>
-              <label class="option-item">
-                <input id="StringToUnicode" type="checkbox" name="option" value="unicode" checked>
-                <span class="switch"><i></i></span><span class="option-copy"><strong>字符串Unicode化</strong><small>隐藏可读字符串内容</small></span>
-              </label>
-              <label class="option-item">
-                <input id="reverseString" type="checkbox" name="option" value="reverse">
+                <input id="stringReverse" type="checkbox" name="option" value="stringReverse" checked>
                 <span class="switch"><i></i></span><span class="option-copy"><strong>字符串颠倒</strong><small>运行时恢复字符串顺序</small></span>
+              </label>
+              <label class="option-item">
+                <input id="stringUnicode" type="checkbox" name="option" value="stringUnicode" checked>
+                <span class="switch"><i></i></span><span class="option-copy"><strong>字符串 Unicode</strong><small>转义为 Unicode 序列</small></span>
+              </label>
+              <label class="option-item">
+                <input id="memberExpression" type="checkbox" name="option" value="memberExpression" checked>
+                <span class="switch"><i></i></span><span class="option-copy"><strong>成员表达式</strong><small>点访问转方括号访问</small></span>
+              </label>
+              <label class="option-item">
+                <input id="numericLiteral" type="checkbox" name="option" value="numericLiteral" checked>
+                <span class="switch"><i></i></span><span class="option-copy"><strong>数值字面量</strong><small>将小整数编码为表达式</small></span>
+              </label>
+              <label class="option-item">
+                <input id="binaryExpression" type="checkbox" name="option" value="binaryExpression" checked>
+                <span class="switch"><i></i></span><span class="option-copy"><strong>二元表达式</strong><small>将二元表达式包裹为函数调用</small></span>
+              </label>
+              <label class="option-item">
+                <input id="booleanLiteral" type="checkbox" name="option" value="booleanLiteral" checked>
+                <span class="switch"><i></i></span><span class="option-copy"><strong>布尔字面量</strong><small>用一元表达式替换布尔值</small></span>
+              </label>
+              <label class="option-item">
+                <input id="assignmentJunk" type="checkbox" name="option" value="assignmentJunk" checked>
+                <span class="switch"><i></i></span><span class="option-copy"><strong>赋值混淆</strong><small>将字面量赋值包裹为函数调用</small></span>
+              </label>
+              <label class="option-item">
+                <input id="zombieCode" type="checkbox" name="option" value="zombieCode" checked>
+                <span class="switch"><i></i></span><span class="option-copy"><strong>僵尸代码</strong><small>插入无效逻辑干扰分析</small></span>
+              </label>
+              <label class="option-item">
+                <input id="controlFlow" type="checkbox" name="option" value="controlFlow">
+                <span class="switch"><i></i></span><span class="option-copy"><strong>控制流平坦化</strong><small>将语句顺序打乱为分发器</small></span>
+              </label>
+              <label class="option-item">
+                <input id="eval" type="checkbox" name="option" value="eval">
+                <span class="switch"><i></i></span><span class="option-copy"><strong>Eval 编码</strong><small>用 eval 编码表达式（注意 CSP）</small></span>
+              </label>
+              <label class="option-item">
+                <input id="renameGlobals" type="checkbox" name="option" value="renameGlobals">
+                <span class="switch"><i></i></span><span class="option-copy"><strong>全局变量重命名</strong><small>重命名顶层标识符（API 风险）</small></span>
+              </label>
+              <label class="option-item">
+                <input id="renameLocals" type="checkbox" name="option" value="renameLocals" checked>
+                <span class="switch"><i></i></span><span class="option-copy"><strong>局部变量重命名</strong><small>重命名函数内标识符</small></span>
               </label>
               <label class="option-item">
                 <input id="comments" type="checkbox" name="option" value="comments">
@@ -261,14 +269,16 @@
         <p>继续探索代码压缩、格式化、编码与转换工具。</p>
       </div>
       <div class="tool-links">
-        <a href="https://www.jshaman.com/" target="_blank" rel="noopener"><span>01</span><strong>JShaman 专业JS混淆加密</strong><small>JSHAMAN</small><i>↗</i></a>
-        <a href="https://www.jshaman.com/jsminify/" target="_blank" rel="noopener"><span>02</span><strong>JS 代码压缩</strong><small>MINIFY</small><i>↗</i></a>
-        <a href="https://www.jshaman.com/enhtml/" target="_blank" rel="noopener"><span>03</span><strong>HTML 加密</strong><small>ENCODE</small><i>↗</i></a>
-        <a href="https://www.js-obfuscator.com/" target="_blank" rel="noopener"><span>04</span><strong>JS Obfuscator</strong><small>OBFUSCATE</small><i>↗</i></a>
-        <a href="https://www.jshaman.com/tools/hide-js-jia-mi.html" target="_blank" rel="noopener"><span>06</span><strong>JS代码隐形加密</strong><small>CONVERT</small><i>↗</i></a>
-        <a href="https://www.jshaman.com/tools/combining-js-jia-mi.html" target="_blank" rel="noopener"><span>05</span><strong>Combining JS组合字符加密</strong><small>FORMAT</small><i>↗</i></a>
-        <a href="https://www.jshaman.com/tools/ts2js.html" target="_blank" rel="noopener"><span>07</span><strong>TS 转 JS</strong><small>TRANSPILE</small><i>↗</i></a>
-        <a href="https://www.jshaman.com/tools/anti-ai-js-encrypt.html" target="_blank" rel="noopener"><span>08</span><strong>反AI逆向JS加密</strong><small>PROTECT</small><i>↗</i></a>
+        <a href="https://www.jshaman.com" target="_blank" rel="noopener noreferrer"><span>01</span><strong>JShaman JavaScript Obfuscator</strong><small>JSHAMAN</small><i>↗</i></a>
+        <a href="https://www.jsjiami.online" target="_blank" rel="noopener noreferrer"><span>02</span><strong>JSJiaMi.online</strong><small>ENCRYPTION</small><i>↗</i></a>
+        <a href="https://www.js-obfuscator.com" target="_blank" rel="noopener noreferrer"><span>03</span><strong>JS-Obfuscator</strong><small>OBFUSCATOR</small><i>↗</i></a>
+        <a href="https://www.jshaman.com/jsminify" target="_blank" rel="noopener noreferrer"><span>04</span><strong>JS-Minify</strong><small>MINIFY</small><i>↗</i></a>
+        <a href="https://www.jshaman.com/enhtml" target="_blank" rel="noopener noreferrer"><span>05</span><strong>Html-Encode</strong><small>ENCODE</small><i>↗</i></a>
+        <a href="https://www.jshaman.com/bytejs" target="_blank" rel="noopener noreferrer"><span>06</span><strong>JS2ByteCode</strong><small>BYTECODE</small><i>↗</i></a>
+        <a href="https://www.jshaman.com/tools/hide-js-jia-mi.html" target="_blank" rel="noopener noreferrer"><span>07</span><strong>JS代码隐形加密</strong><small>HIDE JS</small><i>↗</i></a>
+        <a href="https://www.jshaman.com/tools/combining-js-jia-mi.html" target="_blank" rel="noopener noreferrer"><span>08</span><strong>Combining JS组合字符加密</strong><small>COMBINE</small><i>↗</i></a>
+        <a href="https://www.jshaman.com/tools/ts2js.html" target="_blank" rel="noopener noreferrer"><span>09</span><strong>TS 转 JS</strong><small>TRANSPILE</small><i>↗</i></a>
+        <a href="https://www.jshaman.com/tools/anti-ai-js-encrypt.html" target="_blank" rel="noopener noreferrer"><span>10</span><strong>反AI逆向JS加密</strong><small>ANTI-AI</small><i>↗</i></a>
       </div>
     </section>
   </main>
@@ -282,7 +292,7 @@
   <div class="toast" id="toast" role="status" aria-live="polite"><span></span><b id="toast-text">已复制到剪贴板</b></div>
   <button id="btn1" type="button" hidden aria-hidden="true"></button>
   <button id="btn2" type="button" hidden aria-hidden="true"></button>
-  <script src="./free-obfuscate-bundle.js?v=2"></script>
-  <script src="./app.js?v=3"></script>
+  <script src="./javascript-obfuscator-lite.js?v=1"></script>
+  <script src="./app.js?v=4"></script>
 </body>
 </html>
