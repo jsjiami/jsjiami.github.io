@@ -29,7 +29,9 @@
     <nav class="nav" aria-label="主导航">
       <a class="nav-link active" href="#workspace">JS加密工作台</a>
       <a class="nav-link" href="#capabilities">功能说明</a>
+      <a class="nav-link" href="#plugins">插件</a>
       <a class="nav-link" href="#tools">更多工具</a>
+      <a class="nav-link" href="#about">关于</a>
     </nav>
     <div class="system-status" aria-label="系统状态：可用">
       <span class="status-dot"></span>
@@ -263,6 +265,120 @@
       </div>
     </section>
 
+    <section class="plugins-section" id="plugins" aria-labelledby="plugins-title">
+      <div class="plugins-heading">
+        <div>
+          <span class="section-kicker">BUNDLER PLUGINS</span>
+          <h2 id="plugins-title">接入你的<br><em>构建流程。</em></h2>
+        </div>
+        <div class="plugins-intro">
+          <p>在 Webpack、Vite 或 Rollup 中直接混淆生产构建产物。同一套引擎，同一套参数，无需额外的后处理步骤。以下示例使用 Balanced 预设，并显式列出全部参数。</p>
+          <a class="plugins-doc-link" href="https://www.npmjs.com/package/javascript-obfuscator-lite#bundler-plugins" target="_blank" rel="noopener noreferrer">查看插件文档 <span>→</span></a>
+        </div>
+      </div>
+      <div class="plugin-grid">
+        <article class="plugin-card">
+          <div class="plugin-card-top"><span class="plugin-number">01</span><span class="plugin-badge">WEBPACK 5+</span></div>
+          <h3>Webpack</h3>
+          <p>在资源优化阶段处理匹配的 JavaScript 产物。</p>
+          <pre class="plugin-code"><code>const Obfuscator = require('javascript-obfuscator-lite/webpack');
+
+module.exports = {
+  plugins: [
+    new Obfuscator({
+      // Balanced 预设：显式列出全部参数。
+      options: {
+        stringArray: true,
+        stringReverse: true,
+        stringUnicode: true,
+        memberExpression: true,
+        numericLiteral: true,
+        binaryExpression: true,
+        booleanLiteral: true,
+        assignmentJunk: true,
+        zombieCode: true,
+        controlFlow: false,
+        eval: false,
+        renameGlobals: false,
+        renameLocals: true,
+        compact: false,
+        comments: false,
+        parserPlugins: []
+      }
+    })
+  ]
+};</code></pre>
+        </article>
+        <article class="plugin-card">
+          <div class="plugin-card-top"><span class="plugin-number">02</span><span class="plugin-badge">VITE</span></div>
+          <h3>Vite</h3>
+          <p>混淆生产构建产物，开发服务器不受影响。</p>
+          <pre class="plugin-code"><code>import { defineConfig } from 'vite';
+import Obfuscator from 'javascript-obfuscator-lite/vite';
+
+export default defineConfig({
+  plugins: [
+    Obfuscator({
+      // Balanced 预设：显式列出全部参数。
+      options: {
+        stringArray: true,
+        stringReverse: true,
+        stringUnicode: true,
+        memberExpression: true,
+        numericLiteral: true,
+        binaryExpression: true,
+        booleanLiteral: true,
+        assignmentJunk: true,
+        zombieCode: true,
+        controlFlow: false,
+        eval: false,
+        renameGlobals: false,
+        renameLocals: true,
+        compact: false,
+        comments: false,
+        parserPlugins: []
+      }
+    })
+  ]
+});</code></pre>
+        </article>
+        <article class="plugin-card">
+          <div class="plugin-card-top"><span class="plugin-number">03</span><span class="plugin-badge">ROLLUP</span></div>
+          <h3>Rollup</h3>
+          <p>在标准 Rollup 构建流程中转换生成的 chunk。</p>
+          <pre class="plugin-code"><code>import Obfuscator from 'javascript-obfuscator-lite/rollup';
+
+export default {
+  plugins: [
+    Obfuscator({
+      // Balanced 预设：显式列出全部参数。
+      options: {
+        stringArray: true,
+        stringReverse: true,
+        stringUnicode: true,
+        memberExpression: true,
+        numericLiteral: true,
+        binaryExpression: true,
+        booleanLiteral: true,
+        assignmentJunk: true,
+        zombieCode: true,
+        controlFlow: false,
+        eval: false,
+        renameGlobals: false,
+        renameLocals: true,
+        compact: false,
+        comments: false,
+        parserPlugins: []
+      }
+    })
+  ]
+};</code></pre>
+        </article>
+      </div>
+      <p class="plugins-install"><code>npm install --save-dev javascript-obfuscator-lite</code><span>混淆后的 JavaScript 会自动移除 source map。</span></p>
+      <p class="plugins-parser-note"><strong>parserPlugins</strong> 是 Babel 解析器设置，不是混淆开关。普通 JavaScript 用 <code>[]</code>，JSX 用 <code>['jsx']</code>，import attributes 用 <code>['importAttributes']</code>。TypeScript 和 Flow 需要先转译成 JavaScript。</p>
+    </section>
+
     <section class="tools-section" id="tools" aria-labelledby="tools-title">
       <div class="section-heading">
         <div><span class="section-kicker">DEVELOPER TOOLKIT</span><h2 id="tools-title">更多开发工具</h2></div>
@@ -279,6 +395,36 @@
         <a href="https://www.jshaman.com/tools/combining-js-jia-mi.html" target="_blank" rel="noopener noreferrer"><span>08</span><strong>Combining JS组合字符加密</strong><small>COMBINE</small><i>↗</i></a>
         <a href="https://www.jshaman.com/tools/ts2js.html" target="_blank" rel="noopener noreferrer"><span>09</span><strong>TS 转 JS</strong><small>TRANSPILE</small><i>↗</i></a>
         <a href="https://www.jshaman.com/tools/anti-ai-js-encrypt.html" target="_blank" rel="noopener noreferrer"><span>10</span><strong>反AI逆向JS加密</strong><small>ANTI-AI</small><i>↗</i></a>
+      </div>
+    </section>
+
+    <section class="about-section" id="about" aria-labelledby="about-title">
+      <div class="about-hero">
+        <div>
+          <span class="section-kicker">ABOUT JSJIA MI</span>
+          <h2 id="about-title">关于这个工具。<br><em>简单，直接。</em></h2>
+        </div>
+        <p class="about-lede">JS加密（jsjiami.github.io）是一个在浏览器本地运行的 JavaScript 混淆加密工具。所有处理都在当前设备完成，源码无需上传服务器。</p>
+      </div>
+      <div class="about-grid">
+        <article class="about-card">
+          <span class="about-index">01 / 所属项目</span>
+          <h3>属于 jshaman.com</h3>
+          <p>JS加密是 <a href="https://www.jshaman.com" target="_blank" rel="noopener noreferrer">jshaman.com</a> 旗下的在线工具项目，专注于 JavaScript 代码保护与混淆加密。</p>
+        </article>
+        <article class="about-card">
+          <span class="about-index">02 / 联系我们</span>
+          <h3>保持联系</h3>
+          <p>如有问题、建议或合作需求，欢迎发送邮件至 <a href="mailto:support@jshaman.com">support@jshaman.com</a>。</p>
+        </article>
+      </div>
+      <div class="about-note">
+        <span class="about-index">03 / 工具说明</span>
+        <p>导入或粘贴 JavaScript，选择保护策略后即可生成混淆结果，并直接复制或下载。代码不会离开你的浏览器。</p>
+      </div>
+      <div class="about-actions">
+        <a class="about-primary" href="#workspace">打开加密工作台 <span>→</span></a>
+        <a class="about-secondary" href="https://www.jshaman.com" target="_blank" rel="noopener noreferrer">访问 jshaman.com</a>
       </div>
     </section>
   </main>
